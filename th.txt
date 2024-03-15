@@ -1,0 +1,18 @@
+JAVA script client side script lang:
+server side prog
+
+node js -->server 
+
+node
+
+
+npm init --> to create project
+
+code .
+app.js
+index.js
+server.js
+
+NODE PACKAGE MANAGER:
+function[] --> js.file[] -->folder[] --> build -->node_modules --> NPM
+function method --> class -->package --> project ->jar --> jdk
