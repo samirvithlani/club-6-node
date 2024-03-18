@@ -1,31 +1,28 @@
-// console.log("Hello Node")
-// // var sname = "raj"
-// // console.log("name = ",sname)
-
-// //require('./users.js') //import...users.js file
-// const user = require('./users.js') //import...users.js file
-// console.log(user)
-// console.log(user.userName)
-// console.log(user.userEmail)
-
-// ----------------------------------------------------------------------------------------------------------------------------
+//express
+const express = require('express'); //import express
+const app = express(); //initialize express
 
 
-//2)
 
-// const employee = require('./employee') //import...employee.js file
-// console.log(employee)
+//server creation
 
-// employee.getEmployee()
-// employee.printEmployee()
-
-const { getEmployee,printEmployee,empName} = require('./employee') //import...employee.js file
-getEmployee()
-printEmployee()
-console.log(empName)
+//localhost:3000/test
+//app.get 1)url 2)callback function
+app.get("/test",(req,res)=>{
+    console.log("Test API is called");
+    //res.send("API CALLED...") //string
+    //json...
+    res.json({
+        message:"API CALLED..."
+    })
+})
 
 
 
 
 
 
+const PORT = 3000;
+app.listen(PORT,()=>{
+    console.log('Server is running on port no ' + PORT);
+})
