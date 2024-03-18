@@ -18,11 +18,12 @@ function[] --> js.file[] -->folder[] --> build -->node_modules --> NPM
 function method --> class -->package --> project ->jar --> jdk
 
 
-
+***********************
 npm install express 
 npm install nodemon -g
 
 npodemon app.js
+***************************
 
 
 API --> application programming interface
