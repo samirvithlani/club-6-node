@@ -25,6 +25,18 @@ printEmployee()
 console.log(empName)
 
 
+//localhost:3000/test
+//app.get 1)url 2)callback function
+app.get("/test",(req,res)=>{
+    console.log("Test API is called");
+    //res.send("API CALLED...") //string
+    //json...
+    res.json({
+        message:"API CALLED..."
+    })
+})
+
+
 
 
 

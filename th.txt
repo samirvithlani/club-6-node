@@ -47,6 +47,14 @@ student result --> suggest science commerce --->
 
 API --> consume --> data
 
+npm i exprees[already installed]
+npm install mongoose
+
+app.js db connection
+
+create src
+    models:
+      UserModel.js
 
 
 
