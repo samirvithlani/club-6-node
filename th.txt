@@ -57,4 +57,19 @@ create src
       UserModel.js
 
 
+client -->app.js -->server -->routes ---> controller [db] --> 
+routes --> server --->end client
+
+
+
+
+
+1)create folder named routes
+
+2)creaetd file in controller is UserController.js
+
+
+3)creaet UserRoutes.json
+
+
 
