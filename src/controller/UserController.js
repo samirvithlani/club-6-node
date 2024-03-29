@@ -13,7 +13,6 @@ const getUsers = async(req,res)=>{
 
 const getUserById = async(req,res)=>{
 
-
     const user = await userSchema.findById(req.params.id)
     res.json({
         message:"user fetch successfully",
@@ -21,7 +20,23 @@ const getUserById = async(req,res)=>{
     })
 
 }
+
+const addUser = async(req,res)=>{
+
+
+    console.log("req body",req.body)
+    const savedUser = await userSchema.create(req.body)
+    
+    res.status(201).json({
+        message:"user add successfully",
+        data:savedUser
+    })
+
+}
+
+
 module.exports = {
     getUsers,
-    getUserById
+    getUserById,
+    addUser
 }

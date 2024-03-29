@@ -2,6 +2,7 @@
 const express = require('express'); //import express
 const app = express(); //initialize express
 const mongoose = require('mongoose'); //import mongoose
+app.use(express.json()); //middleware for json data
 
 //routes...
 const userRoutes = require('./src/routes/UserRoutes')
