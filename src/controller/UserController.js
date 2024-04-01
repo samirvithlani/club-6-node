@@ -34,9 +34,32 @@ const addUser = async(req,res)=>{
 
 }
 
+const deleteUser = async(req,res)=>{
+
+    //delete from users where id = 1
+    //db.users.remove({id:1})
+    const id = req.params.id
+    const deletedUser  = await userSchema.findByIdAndDelete(id)
+    console.log("deleted user",deletedUser)
+    if(deletedUser==null){
+        res.status(404).json({
+            message:"user not found"
+        })
+    }
+    else{
+        res.json({
+            message:"user deleted successfully",
+            data:deletedUser
+        })
+    }
+
+
+}
+
 
 module.exports = {
     getUsers,
     getUserById,
-    addUser
+    addUser,
+    deleteUser
 }

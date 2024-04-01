@@ -7,7 +7,7 @@ app.use(express.json()); //middleware for json data
 //routes...
 const userRoutes = require('./src/routes/UserRoutes')
 const employeeRoutes = require('./src/routes/EmployeeRoutes')
-
+//studentRoutes..
 
 //routes use
 //localhost:3000/user/users
@@ -15,6 +15,8 @@ app.use("/user",userRoutes)
 //localhost:3000/employee/addemployee
 //app.js --> routes ---> conttoller -->db[model] -->controller ---> routeso
 app.use("/employee",employeeRoutes)
+
+//app.use("/student",studentRoutes)
 
 
 

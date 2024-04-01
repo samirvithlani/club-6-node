@@ -73,3 +73,9 @@ routes --> server --->end client
 
 
 
+APP.JS __ server --> routes -- controller --> function --->[db] ->res
+userRoutes 
+app.user("/user),userRoutes)
+localhost:3000/user
+
+
