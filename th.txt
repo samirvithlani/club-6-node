@@ -79,3 +79,13 @@ app.user("/user),userRoutes)
 localhost:3000/user
 
 
+role
+
+rid rname
+
+user
+uid ..... rid fk
+
+inner join  
+
+
