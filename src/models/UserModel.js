@@ -21,7 +21,18 @@ const userSchema = new Schema({
     role:{
         type: Schema.Types.ObjectId, //foreign key //234567890djaucgfdu
         ref: 'Role'
-    }
+    },
+    skills:[
+        {
+            type:String
+        }
+    ],
+    permissions:[
+        {
+            type: Schema.Types.ObjectId, //foreign key //234567890djaucgfdu
+            ref: 'Permission'
+        }
+    ]
 })
 // mongoose.model('Users', userSchema)
 // //db.users //userSchema.find

@@ -26,6 +26,8 @@ app.use("/role",roleRoutes)
 //db connection....
 //server creation
 
+
+
 const db = mongoose.connect("mongodb://127.0.0.1:27017/club6_1")
 db.then((data)=>{
     console.log("DB CONNECTED");
