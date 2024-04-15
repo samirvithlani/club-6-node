@@ -8,6 +8,8 @@ app.use(express.json()); //middleware for json data
 const userRoutes = require('./src/routes/UserRoutes')
 const employeeRoutes = require('./src/routes/EmployeeRoutes')
 const roleRoutes = require('./src/routes/RoleRoutes')
+const productRoutes = require('./src/routes/ProductRoutes')
+const cartRoutes = require('./src/routes/CartRoutes')
 //studentRoutes..
 
 //routes use
@@ -17,6 +19,8 @@ app.use("/user",userRoutes)
 //app.js --> routes ---> conttoller -->db[model] -->controller ---> routeso
 app.use("/employee",employeeRoutes)
 app.use("/role",roleRoutes)
+app.use("/product",productRoutes)
+app.use("/cart",cartRoutes)
 
 //app.use("/student",studentRoutes)
 
