@@ -1,5 +1,6 @@
 const userSchema = require("../models/UserModel");
 const permissionSchema = require("../models/PermissionModel");
+const encrypt = require("../util/Encrypt");
 
 const getUsers = async (req, res) => {
   const users = await userSchema.find().populate("role").populate("permissions");
@@ -28,7 +29,28 @@ const getUserById = async (req, res) => {
 
 const addUser = async (req, res) => {
   console.log("req body", req.body);
-  const savedUser = await userSchema.create(req.body);
+
+  const hashedPassword = await encrypt.encryptPassword(req.body.password);
+
+
+  const user = Object.assign(req.body, {password: hashedPassword});
+  console.log("user", user);
+
+
+  // const user = {
+  //   name: req.body.name,
+  //   email: req.body.email,
+  //   age: req.body.age,
+  //   password: hashedPassword,
+  //   status: req.body.status,
+  //   role: req.body.role,
+  //   permissions: req.body.permissions,
+    
+  // }
+
+  //password hash... 
+  //const savedUser = await userSchema.create(req.body);
+  const savedUser = await userSchema.create(user);
 
   res.status(201).json({
     message: "user add successfully",
