@@ -1,7 +1,8 @@
 const router = require('express').Router()
+const authMiddleware = require('../middleware/AuthMiddleware')
 //api url..
 const employeeController = require('../controller/EmployeeController')
 router.post("/addemployee",employeeController.addEmployee)
-router.get("/getemployees",employeeController.getAllEmployees)
+router.get("/getemployees",authMiddleware.validateUser,employeeController.getAllEmployees)
 module.exports = router
 

@@ -89,3 +89,29 @@ uid ..... rid fk
 inner join  
 
 
+
+middleware:
+
+
+app --> routes -->controller --->db --->response...
+
+app --> routes -->[middleware]  ---> controller --->db --->response...
+
+
+middleware condition :
+
+if condition satisfied -> controller 
+else ---> response 
+
+
+req.parmas /employee/:id
+req.body   // json
+
+
+-----------------------------------
+req.headers // header
+
+
+
+
+
