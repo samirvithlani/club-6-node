@@ -114,4 +114,17 @@ req.headers // header
 
 
 
+zod 
+yup
+hapi
+joi
+express-validator
+
+1)npm install zod
+2)util ---> EmployeeValidationSchema.js
+3)middleware --> ZodMiddleware.js
+
+routes --> middleware ---> add --> zodMiddleware.validate
+
+
 
