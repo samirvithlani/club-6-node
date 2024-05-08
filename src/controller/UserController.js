@@ -1,6 +1,7 @@
 const userSchema = require("../models/UserModel");
 const permissionSchema = require("../models/PermissionModel");
 const encrypt = require("../util/Encrypt");
+const mailUtil = require("../util/MailUtil");
 
 const getUsers = async (req, res) => {
   const users = await userSchema.find().populate("role").populate("permissions");
@@ -51,6 +52,7 @@ const addUser = async (req, res) => {
   //password hash... 
   //const savedUser = await userSchema.create(req.body);
   const savedUser = await userSchema.create(user);
+  await mailUtil.sendingMail(savedUser.email,"WELCOME MAIL","<h1>WELCOME TO ABC.com</h1>");
 
   res.status(201).json({
     message: "user add successfully",
