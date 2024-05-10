@@ -16,7 +16,7 @@ const userSchema = new Schema({
     },
     status:{
         type: Boolean,
-        default: true
+        default: false
     },
     role:{
         type: Schema.Types.ObjectId, //foreign key //234567890djaucgfdu

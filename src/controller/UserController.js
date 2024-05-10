@@ -2,6 +2,7 @@ const userSchema = require("../models/UserModel");
 const permissionSchema = require("../models/PermissionModel");
 const encrypt = require("../util/Encrypt");
 const mailUtil = require("../util/MailUtil");
+const otpModel = require("../models/OtpModel");
 
 const getUsers = async (req, res) => {
   const users = await userSchema.find().populate("role").populate("permissions");
@@ -52,8 +53,18 @@ const addUser = async (req, res) => {
   //password hash... 
   //const savedUser = await userSchema.create(req.body);
   const savedUser = await userSchema.create(user);
-  await mailUtil.sendingMail(savedUser.email,"WELCOME MAIL","<h1>WELCOME TO ABC.com</h1>");
+  const otp = Math.floor(1000 + Math.random() * 9000);
 
+  const otpObj = {
+    otp: otp,
+    email: savedUser.email,
+    time: new Date(),
+  }
+
+  await otpModel.create(otpObj); //db otp store...
+
+  await mailUtil.sendingMail(savedUser.email,"verification",`Your OTP is ${otp}`);
+  
   res.status(201).json({
     message: "user add successfully",
     data: savedUser,
@@ -157,6 +168,38 @@ const removeSkill = async (req, res) => {
   }
 };
 
+const verifyUser = async (req, res) => {
+
+  const otp = req.body.otp;
+  const email = req.body.email;
+
+
+  const otpData = await otpModel.findOne({otp: otp, email: email});
+  if(otpData){
+
+    //findByUpdate --> id
+    const updateUser = await userSchema.findOneAndUpdate({email:email},{status:true});
+    res.status(201).json({
+      message:"user verified successfully"
+    })
+
+
+    // res.json({
+    //   message: "user verified successfully",
+    // })
+  }
+
+  else{
+    res.status(404).json({
+      message: "user not verified",
+    })
+  }
+
+
+
+
+}
+
 module.exports = {
   getUsers,
   getUserById,
@@ -167,4 +210,5 @@ module.exports = {
   archiveUser,
   addSkill,
   removeSkill,
+  verifyUser
 };

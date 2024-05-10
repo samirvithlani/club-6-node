@@ -128,3 +128,6 @@ routes --> middleware ---> add --> zodMiddleware.validate
 
 
 
+--->otp ==> 1234 --> store ---> AuthModel --> {id,otp,email}
+
+--->updateStatus ---> put ---> req.body --> otp,email -->update -->true

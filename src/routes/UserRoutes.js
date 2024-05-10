@@ -12,4 +12,5 @@ router.put("/users/:id",userController.upadteUser)
 router.put("/archiveuser/:id",userController.archiveUser)
 router.put("/addskill/:id",userController.addSkill)
 router.put("/removeskill/:id",userController.removeSkill)
+router.post("/verifyuser",userController.verifyUser)
 module.exports = router;
