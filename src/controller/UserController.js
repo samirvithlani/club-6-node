@@ -179,6 +179,7 @@ const verifyUser = async (req, res) => {
 
     //findByUpdate --> id
     const updateUser = await userSchema.findOneAndUpdate({email:email},{status:true});
+    //delete
     res.status(201).json({
       message:"user verified successfully"
     })

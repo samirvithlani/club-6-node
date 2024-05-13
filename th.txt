@@ -142,6 +142,15 @@ addUser --> api --->
 after adding user --> otp generation logic
 
 otp save database. ...
+----------------------
+
+forgot password -->
+
+email --> database match ---> if yes --> otp --> otp databse.... mail
+
+resetPassword
+email --> otp ---> new password // update..
+
 
 
 

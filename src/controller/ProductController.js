@@ -17,6 +17,30 @@ const createProduct = async (req, res) => {
     }
 }
 
+const bulkCreateProduct = async (req, res) => {
+
+    const products = req.body //[]
+
+    try{
+
+        const createdProducts = await productSchema.insertMany(products);
+        res.status(201).json({
+            status: 'success',
+            data: createdProducts
+        })
+
+
+    }catch(error){
+
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+
+    }
+}
+
 module.exports = {
-    createProduct
+    createProduct,
+    bulkCreateProduct
 }
