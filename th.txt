@@ -146,10 +146,14 @@ otp save database. ...
 
 forgot password -->
 
+user collection
 email --> database match ---> if yes --> otp --> otp databse.... mail
 
 resetPassword
 email --> otp ---> new password // update..
+samir@gmail --> 1234 --> sam123 -->
+
+findOneAndUpdate({email:req.body.email,otp:req.body.otp},{password:req.body.password})
 
 
 
