@@ -10,6 +10,7 @@ const employeeRoutes = require('./src/routes/EmployeeRoutes')
 const roleRoutes = require('./src/routes/RoleRoutes')
 const productRoutes = require('./src/routes/ProductRoutes')
 const cartRoutes = require('./src/routes/CartRoutes')
+const uploadRoutes = require('./src/routes/UploadRoutes')
 //studentRoutes..
 
 //routes use
@@ -21,6 +22,7 @@ app.use("/employee",employeeRoutes)
 app.use("/role",roleRoutes)
 app.use("/product",productRoutes)
 app.use("/cart",cartRoutes)
+app.use("/upload",uploadRoutes)
 
 //app.use("/student",studentRoutes)
 
