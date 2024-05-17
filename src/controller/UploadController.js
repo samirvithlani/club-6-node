@@ -1,7 +1,9 @@
 const multer = require('multer');
+const clouinaryController = require('./CloudanryController');
+const uploadModel = require('../models/UploadModel');
 
 const storage = multer.diskStorage({
-    destination:"./uploads/",
+    //destination:"./uploads/",
     filename: function(req, file, cb){
         console.log(file.originalname);
         cb(null,file.originalname);
@@ -26,17 +28,30 @@ const upload = multer({
     }
 }).single('file');
 
-const uploadFile = (req, res) => {
+const uploadFile = async(req, res) => {
 
         try{
 
-            upload(req, res, (err) => {
+            upload(req, res, async(err) => {
                 if(err){
                     res.status(500).json({
                         message:err
                     })
                 }
                 else{
+                    //cloudinary upload
+                    const cloudRes  = await clouinaryController.uploadImage(req.file);
+
+                    const uploadObj = {
+                        profile_pic:cloudRes.secure_url,
+                        //filenMae:req.file.originalname
+                        //filesize
+                        //mitetype
+                    }
+                    //db store.
+
+                    uploadModel.create(uploadObj);
+                    console.log(cloudRes);
                     res.status(200).json({
                         message:"File uploaded successfully",
                         file:req.file
