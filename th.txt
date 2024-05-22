@@ -156,5 +156,14 @@ samir@gmail --> 1234 --> sam123 -->
 findOneAndUpdate({email:req.body.email,otp:req.body.otp},{password:req.body.password})
 
 
+----------------------------------------------------------------------------------------
+authentcation  & authorization
 
+token genration: auth2 scecurity
 
+jwt token :
+JSON WEB TOKEN:
+
+pages : email password : --> session :
+
+api --> token --> validate --->api accss

@@ -3,9 +3,13 @@ const permissionSchema = require("../models/PermissionModel");
 const encrypt = require("../util/Encrypt");
 const mailUtil = require("../util/MailUtil");
 const otpModel = require("../models/OtpModel");
+const tokenUtil = require("../util/TokenUtil");
 
 const getUsers = async (req, res) => {
-  const users = await userSchema.find().populate("role").populate("permissions");
+  const users = await userSchema
+    .find()
+    .populate("role")
+    .populate("permissions");
   res.json({
     message: "user fetch successfully",
     data: users,
@@ -34,10 +38,8 @@ const addUser = async (req, res) => {
 
   const hashedPassword = await encrypt.encryptPassword(req.body.password);
 
-
-  const user = Object.assign(req.body, {password: hashedPassword});
+  const user = Object.assign(req.body, { password: hashedPassword });
   console.log("user", user);
-
 
   // const user = {
   //   name: req.body.name,
@@ -47,10 +49,10 @@ const addUser = async (req, res) => {
   //   status: req.body.status,
   //   role: req.body.role,
   //   permissions: req.body.permissions,
-    
+
   // }
 
-  //password hash... 
+  //password hash...
   //const savedUser = await userSchema.create(req.body);
   const savedUser = await userSchema.create(user);
   const otp = Math.floor(1000 + Math.random() * 9000);
@@ -59,12 +61,16 @@ const addUser = async (req, res) => {
     otp: otp,
     email: savedUser.email,
     time: new Date(),
-  }
+  };
 
   await otpModel.create(otpObj); //db otp store...
 
-  await mailUtil.sendingMail(savedUser.email,"verification",`Your OTP is ${otp}`);
-  
+  await mailUtil.sendingMail(
+    savedUser.email,
+    "verification",
+    `Your OTP is ${otp}`
+  );
+
   res.status(201).json({
     message: "user add successfully",
     data: savedUser,
@@ -150,11 +156,10 @@ const removeSkill = async (req, res) => {
       res.status(201).json({
         message: "skill removed successfully",
       });
-    }
-    else{
-        res.status(404).json({
-            message: "skill not found",
-        });
+    } else {
+      res.status(404).json({
+        message: "skill not found",
+      });
     }
 
     // const updatedUser = await userSchema.findByIdAndUpdate(userId, {$pull: {skills: skill}})
@@ -169,37 +174,62 @@ const removeSkill = async (req, res) => {
 };
 
 const verifyUser = async (req, res) => {
-
   const otp = req.body.otp;
   const email = req.body.email;
 
-
-  const otpData = await otpModel.findOne({otp: otp, email: email});
-  if(otpData){
-
+  const otpData = await otpModel.findOne({ otp: otp, email: email });
+  if (otpData) {
     //findByUpdate --> id
-    const updateUser = await userSchema.findOneAndUpdate({email:email},{status:true});
+    const updateUser = await userSchema.findOneAndUpdate(
+      { email: email },
+      { status: true }
+    );
     //delete
     res.status(201).json({
-      message:"user verified successfully"
-    })
-
+      message: "user verified successfully",
+    });
 
     // res.json({
     //   message: "user verified successfully",
     // })
-  }
-
-  else{
+  } else {
     res.status(404).json({
       message: "user not verified",
-    })
+    });
   }
+};
 
+const loginUser = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
+  const userByEmail = await userSchema.findOne({ email: email });
+  if (userByEmail) {
+    //plain password , encrpated password
+    const isMatch = await encrypt.comparePassword(
+      password,
+      userByEmail.password
+    );
+    if (isMatch) {
 
-
-}
+      //token generation....
+      var token = tokenUtil.generateToken(userByEmail.toObject());
+      res.status(200).json({
+        message: "login successfully",
+        // data: userByEmail,
+        token: token,
+      });
+    } else {
+      res.status(404).json({
+        message: "invalid credentials",
+      });
+    }
+  } else {
+    res.status(404).json({
+      message: "user not found",
+    });
+  }
+};
 
 module.exports = {
   getUsers,
@@ -211,5 +241,6 @@ module.exports = {
   archiveUser,
   addSkill,
   removeSkill,
-  verifyUser
+  verifyUser,
+  loginUser,
 };
