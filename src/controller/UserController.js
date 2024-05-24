@@ -200,10 +200,11 @@ const verifyUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const email = req.body.email; //rohit@gmail.com
+  const password = req.body.password;//rohit123
 
   const userByEmail = await userSchema.findOne({ email: email });
+  console.log("user by email", userByEmail);
   if (userByEmail) {
     //plain password , encrpated password
     const isMatch = await encrypt.comparePassword(

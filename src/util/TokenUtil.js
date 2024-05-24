@@ -1,12 +1,11 @@
-const jwt = require('jsonwebtoken');
-const secret = "samir"
+const jwt = require("jsonwebtoken");
+const secret = "samir";
 
+const generateToken = (userObj) => {
+  const token = jwt.sign(userObj, secret,{
+    expiresIn: "100d"
+  });
+  return token;
+};
 
-const generateToken = (payload) => {
-
-    const token =   jwt.sign(payload,secret)   
-    return token
-}
-
-
-return module.exports = {generateToken} 
+module.exports = { generateToken };
