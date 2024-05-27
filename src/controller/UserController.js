@@ -215,6 +215,8 @@ const loginUser = async (req, res) => {
 
       //token generation....
       var token = tokenUtil.generateToken(userByEmail.toObject());
+      //token database store:
+      //tokenSchema : token,userId
       res.status(200).json({
         message: "login successfully",
         // data: userByEmail,
